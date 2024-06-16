@@ -8,16 +8,17 @@ const WeatherApp = () => {
 				<div className='search'>
 					<div className='search-top'>
 						<i className='fa-solid fa-location-dot'></i>
-						<div className='location'>London</div>
+						<div className='location'>Лондон</div>
 					</div>
 					<div className='search-bar'>
-						<input type='text' placeholder='Введите местоположение' />
+						<input type='text' required />
+						<label htmlFor=''>Введите местоположение</label>
 						<i className='fa-solid fa-magnifying-glass'></i>
 					</div>
 				</div>
 				<div className='weather'>
 					<img src={sunny} alt='sunny' />
-					<div className='weather-type'>Clear</div>
+					<div className='weather-type'>Ясно</div>
 					<div className='temp'>28°C</div>
 				</div>
 				<div className='weather-date'>
