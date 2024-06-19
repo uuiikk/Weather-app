@@ -1,4 +1,5 @@
 import sunny from '../assets/images/sunny.png'
+import iconCloudyWithClarifications from '../assets/images/iconCloudyWithClarifications.svg'
 
 const WeatherApp = () => {
 	return (
@@ -25,23 +26,30 @@ const WeatherApp = () => {
 					</div>
 				</div>
 				<div className='weather'>
-					<img src={sunny} alt='sunny' />
-					<div className='weather-type'>Ясно</div>
+					<img className='sunny' src={sunny} alt='sunny' />
 					<div className='temp'>28°C</div>
+					<img
+						className='iconCloudyWithClarifications'
+						src={iconCloudyWithClarifications}
+						alt='iconCloudyWithClarifications'
+					/>
+					<div className='weather-type'>Облачно с прояснениями</div>
 				</div>
-				<div className='weather-date'>
-					<p>Воскресенье, 16.06</p>
-				</div>
-				<div className='weather-data'>
-					<div className='humidity'>
-						<div className='data-name'>Влажность</div>
-						<i className='fa-solid fa-droplet'></i>
-						<div className='data'>35%</div>
+				<div className='weather-additional-info'>
+					<div className='weather-date'>
+						<p>Воскресенье, 16.06</p>
 					</div>
-					<div className='wind'>
-						<div className='data-name'>Ветер</div>
-						<i className='fa-solid fa-wind'></i>
-						<div className='data'>3 км/ч</div>
+					<div className='weather-data'>
+						<div className='humidity'>
+							<div className='data-name'>Влажность</div>
+							<i className='fa-solid fa-droplet'></i>
+							<div className='data'>35%</div>
+						</div>
+						<div className='wind'>
+							<div className='data-name'>Ветер</div>
+							<i className='fa-solid fa-wind'></i>
+							<div className='data'>3 км/ч</div>
+						</div>
 					</div>
 				</div>
 			</div>
