@@ -1,15 +1,29 @@
+/* @media (height: 600px) {
+	.weather-app{
+		width: 25rem;
+		height: ;
+	}
+} */
 .container {
-	width: clamp(460px, 100vw, 1920px);
+	width: clamp(440px, 100vw, 1920px);
 	height: clamp(765px, 100vh, 1080px);
 	background-image: url('https://www.indianablackexpo.com/wp-content/uploads/2020/04/James-C-Cummings.jpg');
+	background-size: cover;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
+	position: relative;
 }
-
+.weather {
+	width: 400px;
+	height: 400px;
+	display: flex;
+	justify-content: center;
+}
 .weather img {
-	margin-top: -10rem;
+	position: absolute;
+	top: 10rem;
 }
 
 .weather-app {
@@ -19,8 +33,6 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-bottom: 10vh;
-	padding: 2rem;
 	box-shadow: 0rem 0rem 5rem rgba(0, 0, 0, 0.8);
 	position: relative;
 	backdrop-filter: blur(10px);
@@ -68,19 +80,19 @@
 	letter-spacing: 0.1rem;
 }
 /*анимации*/
-/* .search .search-top:active + .search-bar {
-	display:flex;
+.search .search-top:active + .search-bar {
+	display: flex;
 }
-.search .search-top:active{
+.search .search-top:active {
 	display: none;
-} */
+}
 /*/////////////////////////////////////////////////////*/
 
 .search-bar {
 	height: 40px;
 	position: relative;
 	margin-top: 10px;
-	display: flex;
+	display: none;
 	align-items: center;
 	justify-content: center;
 }
@@ -126,7 +138,6 @@
 	align-items: center;
 	justify-content: center;
 	position: relative;
-
 }
 .clear-btn {
 	width: 40px;
@@ -174,7 +185,7 @@
 	font-size: 2rem;
 	color: #252525;
 	border-radius: 3rem;
-	position:absolute;
+	position: absolute;
 	z-index: 1;
 }
 /*анимации*/
@@ -197,10 +208,10 @@
 	transition: 1s;
 	display: none;
 }
-.clear-button:has(.clear-btn:hover){
+.clear-button:has(.clear-btn:hover) {
 	background-color: rgba(255, 255, 255, 0.4);
 }
-.search-button:has(.search-btn:hover){
+.search-button:has(.search-btn:hover) {
 	background-color: rgba(255, 255, 255, 0.4);
 }
 /*/////////////////////////////////////////////////////*/
