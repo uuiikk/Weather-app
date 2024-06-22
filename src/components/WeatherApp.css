@@ -10,7 +10,6 @@
 	position: relative;
 }
 
-
 .weather-app {
 	width: 40rem;
 	height: 65rem;
@@ -18,11 +17,12 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	background-color: #aaaaaa55;
 	box-shadow: 0rem 0rem 5rem rgba(0, 0, 0, 0.8);
 	position: relative;
 	padding: 20px;
 	margin: 20px;
-	backdrop-filter: blur(10px);
+	backdrop-filter: blur(5px);
 }
 
 .search {
@@ -67,14 +67,8 @@
 	letter-spacing: 0.1rem;
 }
 /*анимации*/
-.location:hover{
+.location:hover {
 	background-color: rgba(255, 255, 255, 0.4);
-}
-.search-top:active + .search-bar {
-	display: flex;
-}
-.search-top:active {
-	display: none;
 }
 /*/////////////////////////////////////////////////////*/
 
@@ -178,8 +172,7 @@
 	z-index: 1;
 }
 /*анимации*/
-.search-bar input:focus ~ label,
-.search-bar input:valid ~ label {
+.search-bar input:focus ~ label {
 	margin-top: -30px;
 	font-size: 1.4rem;
 	color: #252525;
@@ -212,7 +205,7 @@
 	justify-content: center;
 	position: relative;
 }
-.sunny{
+.sunny {
 	width: 440px;
 	position: relative;
 	margin-top: 20px;
@@ -221,37 +214,40 @@
 .temp {
 	display: flex;
 	justify-content: center;
-	align-items:center;
+	align-items: center;
 	width: 380px;
 	height: 7.5rem;
 	margin: 10px 10px 0 10px;
-	bottom: 40px;
+	bottom: 50px;
 	position: absolute;
 	font-size: 9rem;
 	color: #252525;
-	/* background-image: linear-gradient(to right, #2f2e57, #605d80);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; */
-	text-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.2); 
+	text-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
-.iconCloudyWithClarifications{
+.container-weather-type {
+	width: 400px;
+	height: 40px;
+	margin-top: 10px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	bottom: 0;
+	position: absolute;
+}
+.iconCloudyWithClarifications {
 	width: auto;
 	height: 40px;
 	display: flex;
-	justify-content: right;
+	justify-content: center;
 	align-items: center;
-	position: absolute;
-	bottom: 0;
-	left: 20px;
 	margin: 0 5px 0 10px;
 }
 .weather-type {
 	width: auto;
 	height: 2.2rem;
-	bottom: 0;
-	right: 20px;
+	display: flex;
 	margin: 0 10px 0 5px;
-	position: absolute;
 	font-size: 2.2rem;
 	color: #252525;
 }
@@ -261,7 +257,6 @@
 	display: grid;
 	justify-content: center;
 	position: relative;
-
 }
 .weather-date {
 	width: 360px;
@@ -306,7 +301,9 @@
 
 .weather-data i {
 	font-size: 4rem;
-	color: #00AEEF99;
+	background-image: linear-gradient(30deg, #efe9f4, #5078f2);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 	text-shadow: -0.3rem 0.3rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
