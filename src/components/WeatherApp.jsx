@@ -29,26 +29,16 @@ const WeatherApp = () => {
 	}
 
 	const search = async () => {
-		const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=Metric&appid=${api_key_openWeatherMap}`
+		const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=Metric&appid=${api_key_openWeatherMap}&&lang=ru`
 		const res = await fetch(url)
 		const searchData = await res.json()
 		console.log(searchData)
 		setData(searchData)
 		setLocation('')
-		console.log(data + location)
-
 		//для анимации
 		display = 1
 		showSearchBar()
 	}
-
-	// const translateLocation = async () => {
-	// 	//перевод
-	// 	const translateUrl = `https://api.mymemory.translated.net/get?q=${data.name}&langpair=en-GB|ru-RU`
-	// 	const translateRes = await fetch(translateUrl)
-	// 	const translateLocation = await translateRes.json()
-	// 	console.log(translateLocation.responseData.translatedText)
-	// }
 
 	return (
 		<div className='container'>
@@ -57,7 +47,7 @@ const WeatherApp = () => {
 					<div id='search-top' className='search-top' onClick={showSearchBar}>
 						<div className='location'>
 							<i className='fa-solid fa-location-dot'></i>
-							<label className='city'>{data.name}</label>
+							{data.name && <label className='city'>{data.name}</label>}
 						</div>
 					</div>
 					<div id='search-bar' className='search-bar'>
