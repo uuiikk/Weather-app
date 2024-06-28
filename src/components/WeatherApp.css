@@ -32,6 +32,7 @@
 	justify-content: center;
 	flex-direction: column;
 	margin-top: 10px;
+	margin-bottom: 10px;
 	row-gap: 1rem;
 	z-index: 1;
 }
@@ -93,7 +94,6 @@
 	outline: none;
 	border: none;
 	border-radius: 3rem;
-	margin-right: 5px;
 }
 .search-bar label {
 	display: flex;
@@ -121,6 +121,7 @@
 	align-items: center;
 	justify-content: center;
 	position: relative;
+	margin-left: 5px;
 }
 .clear-btn {
 	width: 40px;
@@ -208,7 +209,7 @@
 .sunny {
 	width: 440px;
 	position: relative;
-	margin-top: 20px;
+	margin-top: 10px;
 }
 
 .temp {
