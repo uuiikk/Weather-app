@@ -1,5 +1,48 @@
-import sunny from '../assets/images/sunny.png'
-import iconCloudyWithClarifications from '../assets/images/iconCloudyWithClarifications.svg'
+import thunderstorm200 from '../assets/images/thunderstorm200.svg'
+import thunderstorm201 from '../assets/images/thunderstorm201.svg'
+import thunderstorm202 from '../assets/images/thunderstorm202.svg'
+import thunderstorm210 from '../assets/images/thunderstorm210.svg'
+import thunderstorm211 from '../assets/images/thunderstorm211.svg'
+import thunderstorm222 from '../assets/images/thunderstorm222.svg'
+import thunderstorm230 from '../assets/images/thunderstorm230.svg'
+import thunderstorm231 from '../assets/images/thunderstorm231.svg'
+import thunderstorm232 from '../assets/images/thunderstorm232.svg'
+import drizzle300 from '../assets/images/drizzle300.svg'
+import drizzle301 from '../assets/images/drizzle301.svg'
+import drizzle302 from '../assets/images/drizzle302.svg'
+import drizzle310 from '../assets/images/drizzle310.svg'
+import drizzle313 from '../assets/images/drizzle313.svg'
+import drizzle314 from '../assets/images/drizzle314.svg'
+import rain500 from '../assets/images/rain500.svg'
+import rain501 from '../assets/images/rain501.svg'
+import rain50234 from '../assets/images/rain50234.svg'
+import rain511 from '../assets/images/rain511.svg'
+import rain5201 from '../assets/images/rain5201.svg'
+import rain522 from '../assets/images/rain522.svg'
+import rain531 from '../assets/images/rain531.svg'
+import snow600 from '../assets/images/snow600.svg'
+import snow601 from '../assets/images/snow601.svg'
+import snow602 from '../assets/images/snow602.svg'
+import snow611 from '../assets/images/snow611.svg'
+import snow612 from '../assets/images/snow612.svg'
+import snow613 from '../assets/images/snow613.svg'
+import snow61520 from '../assets/images/snow61520.svg'
+import snow61621 from '../assets/images/snow61621.svg'
+import snow622 from '../assets/images/snow622.svg'
+import clear from '../assets/images/clear.svg'
+import clouds801 from '../assets/images/clouds801.svg'
+import clouds802 from '../assets/images/clouds802.svg'
+import clouds803 from '../assets/images/clouds803.svg'
+import clouds804 from '../assets/images/clouds804.svg'
+import mist from '../assets/images/mist.svg'
+import smoke from '../assets/images/smoke.png'
+import haze from '../assets/images/haze.png'
+import dust from '../assets/images/dust.png'
+import fog from '../assets/images/fog.png'
+import sand from '../assets/images/sand.png'
+import ash from '../assets/images/ash.png'
+import squall from '../assets/images/squall.svg'
+import tornado from '../assets/images/tornado.svg'
 import { useState, useEffect, useRef } from 'react'
 
 const WeatherApp = () => {
@@ -24,6 +67,7 @@ const WeatherApp = () => {
 			const resWeather = await fetch(urlWeather)
 			const defaultWeatherData = await resWeather.json()
 			setData(defaultWeatherData)
+			console.log(defaultWeatherData)
 			setLocation('')
 		}
 		fetchDefaultWeather()
@@ -53,7 +97,8 @@ const WeatherApp = () => {
 	}
 
 	const outsideAlerterRef = useOutsideAlerter(() => {
-		if (displaySearchBar == false) {null
+		if (displaySearchBar == false) {
+			null
 		} else {
 			hideShowSearchBar()
 		}
@@ -104,6 +149,67 @@ const WeatherApp = () => {
 		}
 	}
 
+	const weatherImages = {
+		200: thunderstorm200,
+		201: thunderstorm201,
+		202: thunderstorm202,
+		210: thunderstorm210,
+		211: thunderstorm211,
+		212: thunderstorm222,
+		221: thunderstorm222,
+		230: thunderstorm230,
+		231: thunderstorm231,
+		232: thunderstorm232,
+		300: drizzle300,
+		301: drizzle301,
+		302: drizzle302,
+		310: drizzle310,
+		311: drizzle301,
+		312: drizzle302,
+		313: drizzle313,
+		314: drizzle314,
+		321: drizzle310,
+		500: rain500,
+		501: rain501,
+		502: rain50234,
+		503: rain50234,
+		504: rain50234,
+		511: rain511,
+		520: rain5201,
+		521: rain5201,
+		522: rain522,
+		531: rain531,
+		600: snow600,
+		601: snow601,
+		602: snow602,
+		611: snow611,
+		612: snow612,
+		613: snow613,
+		615: snow61520,
+		616: snow61621,
+		620: snow61520,
+		621: snow61621,
+		622: snow622,
+		800: clear,
+		801: clouds801,
+		802: clouds802,
+		803: clouds803,
+		804: clouds804,
+		701: mist,
+		711: smoke,
+		721: haze,
+		731: dust,
+		741: fog,
+		751: sand,
+		761: ash,
+		771: squall,
+		781: tornado,
+	}
+
+	const weatherImage = data.weather
+		? weatherImages[data.weather[0].id]
+		: null
+
 	return (
 		<div className='container'>
 			<div className='weather-app'>
@@ -140,17 +246,24 @@ const WeatherApp = () => {
 					</div>
 				</div>
 				<div className='weather'>
-					<img className='sunny' src={sunny} alt='sunny' />
+					<img className='weatherImage' src={weatherImage} />
 					<div className='temp'>
 						{data.main ? `${Math.floor(data.main.temp)}°C` : null}
 					</div>
 					<div className='container-weather-type'>
-						<img
-							className='iconCloudyWithClarifications'
-							src={iconCloudyWithClarifications}
-							alt='iconCloudyWithClarifications'
-						/>
-						<div className='weather-type'>{weatherDesc}</div>
+						<div className='weatherDesc'>{weatherDesc}</div>
+						<div className='weatherTempFeelsLike'>
+							{data.main
+								? `Ощущается как: ${Math.floor(data.main.feels_like)}°C`
+								: null}
+						</div>
+						<div className='weatherTempMaxMin'>
+							{data.main
+								? `Макс.: ${Math.floor(
+										data.main.temp_max
+								)}°, мин.: ${Math.floor(data.main.temp_min)}°`
+								: null}
+						</div>
 					</div>
 				</div>
 				<div className='weather-additional-info'>
@@ -169,7 +282,7 @@ const WeatherApp = () => {
 							<div className='data-name'>Ветер</div>
 							<i className='fa-solid fa-wind'></i>
 							<div className='data'>
-								{data.wind ? `${Math.floor(data.wind.speed)}` : null} км/ч
+								{data.wind ? `${Math.floor(data.wind.speed)}` : null} м/с
 							</div>
 						</div>
 					</div>
