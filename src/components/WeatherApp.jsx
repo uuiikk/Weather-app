@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import thunderstorm200 from '../assets/images/thunderstorm200.svg'
 import thunderstorm201 from '../assets/images/thunderstorm201.svg'
 import thunderstorm202 from '../assets/images/thunderstorm202.svg'
@@ -43,12 +44,15 @@ import sand from '../assets/images/sand.png'
 import ash from '../assets/images/ash.png'
 import squall from '../assets/images/squall.svg'
 import tornado from '../assets/images/tornado.svg'
+import notFoundImage from '../assets/images/notFound.png'
+import loadingGif from '../assets/images/loading.gif'
 import { useState, useEffect, useRef } from 'react'
 
 const WeatherApp = () => {
 	const [data, setData] = useState({})
 	const [location, setLocation] = useState('')
 	const [weatherDesc, setWeatherDesc] = useState('')
+	const [loading, setLoading] = useState(false)
 	const api_key_openWeatherMap = '4c7d8207eeb7d552ffc216363ee41bdc'
 	const api_key_BigDataCloud = 'bdc_96fdba2986b34eba83bd8725d7dc456f'
 
@@ -58,6 +62,7 @@ const WeatherApp = () => {
 
 	useEffect(() => {
 		const fetchDefaultWeather = async () => {
+			setLoading(true)
 			const urlLocation = `https://api-bdc.net/data/ip-geolocation?&localityLanguage=ru&key=${api_key_BigDataCloud}`
 			const resLocation = await fetch(urlLocation)
 			const searchData = await resLocation.json()
@@ -69,6 +74,7 @@ const WeatherApp = () => {
 			setData(defaultWeatherData)
 			console.log(defaultWeatherData)
 			setLocation('')
+			setLoading(false)
 		}
 		fetchDefaultWeather()
 	}, [])
@@ -128,8 +134,14 @@ const WeatherApp = () => {
 			const res = await fetch(url)
 			const searchData = await res.json()
 			console.log(searchData)
-			setData(searchData)
-			setLocation('')
+			if (searchData.cod !== 200) {
+				setData({ notFound: true })
+				setLocation('')
+			} else {
+				setData(searchData)
+				setLocation('')
+			}
+			setLoading(false)
 			//для анимации
 			displaySearchBar = true
 			hideShowSearchBar()
@@ -206,12 +218,75 @@ const WeatherApp = () => {
 		781: tornado,
 	}
 
-	const weatherImage = data.weather
-		? weatherImages[data.weather[0].id]
+	const weatherImage = data.weather ? weatherImages[data.weather[0].id] : null
+
+	const backgroundImages = {
+		Thunderstorm:
+			'https://get.wallhere.com/photo/landscape-night-nature-sky-clouds-lightning-storm-atmosphere-dusk-thunder-cloud-weather-thunderstorm-darkness-2560x1600-px-700891.jpg',
+		Drizzle:
+			'https://wp-s.ru/wallpapers/13/5/314963270287327/minimalistichnaya-kartinka-dozhdya.jpg',
+		Rain: 'https://img3.fonwall.ru/o/zn/sea-water-ocean-horizon-kptq.jpeg?auto=compress&amp;fit=resize&amp;w=1200&amp;display=large',
+		Snow: 'https://wallbox.ru/wallpapers/main2/201744/150962252759fb02ff2cf323.87542290.jpg',
+		Mist: 'https://c.pxhere.com/photos/a0/07/photo-172994.jpg!d',
+		Smoke:
+			'https://get.wallhere.com/photo/sunlight-monochrome-nature-sky-clouds-morning-mist-atmosphere-cloud-fog-weather-dawn-thunderstorm-darkness-1920x1080-px-atmospheric-phenomenon-atmosphere-of-earth-black-and-white-meteorological-phenomenon-514651.jpg',
+		Haze: 'https://c.pxhere.com/photos/a0/07/photo-172994.jpg!d',
+		Dust: 'https://yesofcorsa.com/wp-content/uploads/2018/02/Dust-Storm-Wallpaper-HQ.jpg',
+		Fog: 'https://c.pxhere.com/photos/a0/07/photo-172994.jpg!d',
+		Sand: 'https://yesofcorsa.com/wp-content/uploads/2018/02/Dust-Storm-Wallpaper-HQ.jpg',
+		Ash: 'https://get.wallhere.com/photo/sunlight-monochrome-nature-sky-clouds-morning-mist-atmosphere-cloud-fog-weather-dawn-thunderstorm-darkness-1920x1080-px-atmospheric-phenomenon-atmosphere-of-earth-black-and-white-meteorological-phenomenon-514651.jpg',
+		Squall:
+			'https://wallpapersgood.ru/wallpapers/main/201403/cb3710404e1ee55.jpg',
+		Tornado:
+			'https://otvet.imgsmail.ru/download/u_889473993c63ee8b2466d8dd7a1e325e.jpg',
+		Clear:
+			'https://e3.365dm.com/21/06/2048x1152/skynews-sun-weather_5415028.jpg?20210614155058',
+		Clouds:
+			'https://www.indianablackexpo.com/wp-content/uploads/2020/04/James-C-Cummings.jpg',
+	}
+
+	const backgroundImage = data.weather
+		? backgroundImages[data.weather[0].main]
 		: null
 
+	const currentDate = new Date()
+
+	const daysOfWeek = [
+		'Воскресенье',
+		'Понедельник',
+		'Вторник',
+		'Среда',
+		'Четверг',
+		'Пятница',
+		'Суббота',
+	]
+
+	const months = [
+		'Января',
+		'Февраля',
+		'Марта',
+		'Апреля',
+		'Мая',
+		'Июня',
+		'Июля',
+		'Августа',
+		'Сентября',
+		'Октября',
+		'Ноября',
+		'Декабря',
+	]
+
+	const dayOfWeek = daysOfWeek[currentDate.getDay()]
+	const month = months[currentDate.getMonth()]
+	const dayOfMonth = currentDate.getDate()
+
+	const formattedDate = `${dayOfWeek}, ${dayOfMonth} ${month} `
+
 	return (
-		<div className='container'>
+		<div
+			className='container'
+			style={{ backgroundImage: `url(${backgroundImage})` }}
+		>
 			<div className='weather-app'>
 				<div className='search'>
 					<div
@@ -221,7 +296,7 @@ const WeatherApp = () => {
 					>
 						<div className='location'>
 							<i className='fa-solid fa-location-dot'></i>
-							{data.name && <label>{data.name}</label>}
+							<label>{data.name ? data.name : 'Не найдено'}</label>
 						</div>
 					</div>
 					<div id='search-bar' className='search-bar'>
@@ -245,48 +320,57 @@ const WeatherApp = () => {
 						</div>
 					</div>
 				</div>
-				<div className='weather'>
-					<img className='weatherImage' src={weatherImage} />
-					<div className='temp'>
-						{data.main ? `${Math.floor(data.main.temp)}°C` : null}
-					</div>
-					<div className='container-weather-type'>
-						<div className='weatherDesc'>{weatherDesc}</div>
-						<div className='weatherTempFeelsLike'>
-							{data.main
-								? `Ощущается как: ${Math.floor(data.main.feels_like)}°C`
-								: null}
-						</div>
-						<div className='weatherTempMaxMin'>
-							{data.main
-								? `Макс.: ${Math.floor(
-										data.main.temp_max
-								)}°, мин.: ${Math.floor(data.main.temp_min)}°`
-								: null}
-						</div>
-					</div>
-				</div>
-				<div className='weather-additional-info'>
-					<div className='weather-date'>
-						<p>Воскресенье, 16.06</p>
-					</div>
-					<div className='weather-data'>
-						<div className='humidity'>
-							<div className='data-name'>Влажность</div>
-							<i className='fa-solid fa-droplet'></i>
-							<div className='data'>
-								{data.main ? data.main.humidity : null}%
+				{loading ? (<img className='loader' src={loadingGif} alt='loading'/>) : data.notFound ? (
+					<>
+						<div className='not-found'>Местоположение не найдено</div>
+						<img className='notFoundImage' src={notFoundImage} />
+					</>
+				) : (
+					<>
+						<div className='weather'>
+							<img className='weatherImage' src={weatherImage} />
+							<div className='temp'>
+								{data.main ? `${Math.floor(data.main.temp)}°C` : null}
+							</div>
+							<div className='container-weather-type'>
+								<div className='weatherDesc'>{weatherDesc}</div>
+								<div className='weatherTempFeelsLike'>
+									{data.main
+										? `Ощущается как: ${Math.floor(data.main.feels_like)}°C`
+										: null}
+								</div>
+								<div className='weatherTempMaxMin'>
+									{data.main
+										? `Макс.: ${Math.floor(
+												data.main.temp_max
+										  )}°, мин.: ${Math.floor(data.main.temp_min)}°`
+										: null}
+								</div>
 							</div>
 						</div>
-						<div className='wind'>
-							<div className='data-name'>Ветер</div>
-							<i className='fa-solid fa-wind'></i>
-							<div className='data'>
-								{data.wind ? `${Math.floor(data.wind.speed)}` : null} м/с
+						<div className='weather-additional-info'>
+							<div className='weather-date'>
+								<div>{formattedDate}</div>
+							</div>
+							<div className='weather-data'>
+								<div className='humidity'>
+									<div className='data-name'>Влажность</div>
+									<i className='fa-solid fa-droplet'></i>
+									<div className='data'>
+										{data.main ? data.main.humidity : null}%
+									</div>
+								</div>
+								<div className='wind'>
+									<div className='data-name'>Ветер</div>
+									<i className='fa-solid fa-wind'></i>
+									<div className='data'>
+										{data.wind ? `${Math.floor(data.wind.speed)}` : null} м/с
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
+					</>
+				)}
 			</div>
 		</div>
 	)
