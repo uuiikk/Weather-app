@@ -61,6 +61,13 @@ const WeatherApp = () => {
 	}, [data.weather])
 
 	useEffect(() => {
+		const input = document.getElementById('search-bar-input')
+		if (input.value == '') {
+			displaySearchBar = true
+		}
+	})
+
+	useEffect(() => {
 		const fetchDefaultWeather = async () => {
 			setLoading(true)
 			const urlLocation = `https://api-bdc.net/data/ip-geolocation?&localityLanguage=ru&key=${api_key_BigDataCloud}`
@@ -159,6 +166,13 @@ const WeatherApp = () => {
 		if (e.key === 'Enter') {
 			search()
 		}
+	}
+
+	const clearInput = () => {
+		const input = document.getElementById('search-bar-input')
+		input.value = ''
+		input.focus()
+		displaySearchBar = true
 	}
 
 	const weatherImages = {
@@ -312,7 +326,7 @@ const WeatherApp = () => {
 						<label htmlFor='search-bar-input'>Введите местоположение</label>
 						<div className='clear-button'>
 							<i className='fa-solid fa-xmark'></i>
-							<button className='clear-btn' />
+							<button className='clear-btn' onClick={clearInput} />
 						</div>
 						<div className='search-button'>
 							<i className='fa-solid fa-search'></i>
@@ -320,7 +334,9 @@ const WeatherApp = () => {
 						</div>
 					</div>
 				</div>
-				{loading ? (<img className='loader' src={loadingGif} alt='loading'/>) : data.notFound ? (
+				{loading ? (
+					<img className='loader' src={loadingGif} alt='loading' />
+				) : data.notFound ? (
 					<>
 						<div className='not-found'>Местоположение не найдено</div>
 						<img className='notFoundImage' src={notFoundImage} />

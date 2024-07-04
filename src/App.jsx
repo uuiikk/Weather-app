@@ -1,11 +1,11 @@
-import WeatherApp from "./components/WeatherApp"
-import "./components/WeatherApp.css"
+import WeatherApp from './widgets/WeatherApp'
+import './widgets/styles/WeatherApp.css'
 const App = () => {
-  return (
-    <div>
-        <WeatherApp />
-    </div>
-  )
+	return (
+		<div>
+			<WeatherApp />
+		</div>
+	)
 }
 
 export default App
