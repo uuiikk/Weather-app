@@ -345,6 +345,7 @@ const WeatherApp = () => {
 			style={{
 				backgroundImage: `url(${backgroundImage})`,
 				backgroundRepeat: 'no-repeat',
+				backgroundSize: '100% auto',
 			}}
 		>
 			<div className='current-weather'>
@@ -353,11 +354,11 @@ const WeatherApp = () => {
 						id='search-top'
 						className='search-top'
 						onClick={hideShowSearchBar}
-					>	
+					>
 						<div className='location'>
 							<i className='fa-solid fa-location-dot'></i>
 							<label>
-								{data.name ? `${data.name}, ${data.sys.country}` : "Загрузка..."}
+								{data.name ? `${data.name}, ${data.sys.country}` : 'Не найдено'}
 							</label>
 						</div>
 						<div id='my-location-button' className='my-location-button'>
@@ -455,138 +456,290 @@ const WeatherApp = () => {
 			<div className='five-days-forecast-weather'>
 				{loading ? null : data.notFound ? null : (
 					<>
-						<section
-							className='section-forecast'
-							aria-labelledby='forecast-label'
-							data-5-day-forecast
-						>
-							<h2 className='title-2' id='forecast-label'>
-								Прогноз на 5 дней
-							</h2>
-							<div className='card card-lg forecast-card'>
-								<ul>
-									<li className='card-item'>
-										<div className='icon-wrapper'>
-											<img
-												src={weatherImage}
-												width='36'
-												height='36'
-												alt='Overcast Clouds'
-												className='weather-icon'
-											/>
-
-											<span className='span'>
-												<p className='title-2'>25</p>
-											</span>
-										</div>
-										<p className='label-1'>17 Feb</p>
-										<p className='label-1'>Friday</p>
-									</li>
-									<li className='card-item'>
-										<div className='icon-wrapper'>
-											<img
-												src={weatherImage}
-												width='36'
-												height='36'
-												alt='Overcast Clouds'
-												className='weather-icon'
-											/>
-
-											<span className='span'>
-												<p className='title-2'>25</p>
-											</span>
-										</div>
-										<p className='label-1'>17 Feb</p>
-										<p className='label-1'>Friday</p>
-									</li>
-									<li className='card-item'>
-										<div className='icon-wrapper'>
-											<img
-												src={weatherImage}
-												width='36'
-												height='36'
-												alt='Overcast Clouds'
-												className='weather-icon'
-											/>
-
-											<span className='span'>
-												<p className='title-2'>25</p>
-											</span>
-										</div>
-										<p className='label-1'>17 Feb</p>
-										<p className='label-1'>Friday</p>
-									</li>
-									<li className='card-item'>
-										<div className='icon-wrapper'>
-											<img
-												src={weatherImage}
-												width='36'
-												height='36'
-												alt='Overcast Clouds'
-												className='weather-icon'
-											/>
-
-											<span className='span'>
-												<p className='title-2'>25</p>
-											</span>
-										</div>
-										<p className='label-1'>17 Feb</p>
-										<p className='label-1'>Friday</p>
-									</li>
-									<li className='card-item'>
-										<div className='icon-wrapper'>
-											<img
-												src={weatherImage}
-												width='36'
-												height='36'
-												alt='Overcast Clouds'
-												className='weather-icon'
-											/>
-
-											<span className='span'>
-												<p className='title-2'>25</p>
-											</span>
-										</div>
-										<p className='label-1'>17 Feb</p>
-										<p className='label-1'>Friday</p>
-									</li>
-									<li className='card-item'>
-										<div className='icon-wrapper'>
-											<img
-												src={weatherImage}
-												width='36'
-												height='36'
-												alt='Overcast Clouds'
-												className='weather-icon'
-											/>
-
-											<span className='span'>
-												<p className='title-2'>25</p>
-											</span>
-										</div>
-										<p className='label-1'>17 Feb</p>
-										<p className='label-1'>Friday</p>
-									</li>
-									<li className='card-item'>
-										<div className='icon-wrapper'>
-											<img
-												src={weatherImage}
-												width='36'
-												height='36'
-												alt='Overcast Clouds'
-												className='weather-icon'
-											/>
-
-											<span className='span'>
-												<p className='title-2'>25</p>
-											</span>
-										</div>
-										<p className='label-1'>17 Feb</p>
-										<p className='label-1'>Friday</p>
-									</li>
-								</ul>
+						<label className='five-days-forecast-label'>
+							Прогноз на 5 дней
+						</label>
+						<div className='five-days-forecast-card-container'>
+							<div className='five-days-forecast-card-item'>
+								<div className='icon-wrapper'>
+									<img src={weatherImage} className='weather-icon' />
+									<div className='icon-wrapper-max-temp'>
+										{data.main
+											? `Макс.: ${Math.floor(data.main.temp_max)}°`
+											: null}
+									</div>
+									<hr
+										style={{
+											width: '58px',
+											height: '2px',
+											display: 'flex',
+											position: 'relative',
+											top: '6px',
+											left: '-6px',
+											border: 'none',
+											borderTop: '2px solid #252525',
+											borderRadius: '1px',
+										}}
+									/>
+									<div className='icon-wrapper-min-temp'>
+										{data.main
+											? `мин.: ${Math.floor(data.main.temp_min)}°`
+											: null}
+									</div>
+								</div>
+								<div className='weather-desc-wrapper'>{weatherDesc}</div>
+								<div className='date-wrapper'>
+									<div className='date-wrapper-day-of-week'>{`${dayOfWeek}`}</div>
+									<hr
+										style={{
+											width: '100%',
+											height: '2px',
+											display: 'flex',
+											position: 'relative',
+											top: '6px',
+											border: 'none',
+											borderTop: '2px solid #252525',
+											borderRadius: '1px',
+										}}
+									/>
+									<div className='date-wrapper-day-of-month'>
+										{`${dayOfMonth} ${month}`}
+									</div>
+								</div>
 							</div>
-						</section>
+							<hr
+								style={{
+									width: '100%',
+									height: '2px',
+									display: 'flex',
+									position: 'relative',
+									border: 'none',
+									borderTop: '2px solid #25252540',
+									borderRadius: '1px',
+								}}
+							/>
+							<div className='five-days-forecast-card-item'>
+								<div className='icon-wrapper'>
+									<img src={weatherImage} className='weather-icon' />
+									<div className='icon-wrapper-max-temp'>
+										{data.main
+											? `Макс.: ${Math.floor(data.main.temp_max)}°`
+											: null}
+									</div>
+									<hr
+										style={{
+											width: '58px',
+											height: '2px',
+											display: 'flex',
+											position: 'relative',
+											top: '6px',
+											left: '-6px',
+											border: 'none',
+											borderTop: '2px solid #252525',
+											borderRadius: '1px',
+										}}
+									/>
+									<div className='icon-wrapper-min-temp'>
+										{data.main
+											? `мин.: ${Math.floor(data.main.temp_min)}°`
+											: null}
+									</div>
+								</div>
+								<div className='weather-desc-wrapper'>{weatherDesc}</div>
+								<div className='date-wrapper'>
+									<div className='date-wrapper-day-of-week'>{`${dayOfWeek}`}</div>
+									<hr
+										style={{
+											width: '100%',
+											height: '2px',
+											display: 'flex',
+											position: 'relative',
+											top: '6px',
+											border: 'none',
+											borderTop: '2px solid #252525',
+											borderRadius: '1px',
+										}}
+									/>
+									<div className='date-wrapper-day-of-month'>
+										{`${dayOfMonth} ${month}`}
+									</div>
+								</div>
+							</div>
+							<hr
+								style={{
+									width: '100%',
+									height: '2px',
+									display: 'flex',
+									position: 'relative',
+									border: 'none',
+									borderTop: '2px solid #25252540',
+									borderRadius: '1px',
+								}}
+							/>
+							<div className='five-days-forecast-card-item'>
+								<div className='icon-wrapper'>
+									<img src={weatherImage} className='weather-icon' />
+									<div className='icon-wrapper-max-temp'>
+										{data.main
+											? `Макс.: ${Math.floor(data.main.temp_max)}°`
+											: null}
+									</div>
+									<hr
+										style={{
+											width: '58px',
+											height: '2px',
+											display: 'flex',
+											position: 'relative',
+											top: '6px',
+											left: '-6px',
+											border: 'none',
+											borderTop: '2px solid #252525',
+											borderRadius: '1px',
+										}}
+									/>
+									<div className='icon-wrapper-min-temp'>
+										{data.main
+											? `мин.: ${Math.floor(data.main.temp_min)}°`
+											: null}
+									</div>
+								</div>
+								<div className='weather-desc-wrapper'>{weatherDesc}</div>
+								<div className='date-wrapper'>
+									<div className='date-wrapper-day-of-week'>{`${dayOfWeek}`}</div>
+									<hr
+										style={{
+											width: '100%',
+											height: '2px',
+											display: 'flex',
+											position: 'relative',
+											top: '6px',
+											border: 'none',
+											borderTop: '2px solid #252525',
+											borderRadius: '1px',
+										}}
+									/>
+									<div className='date-wrapper-day-of-month'>
+										{`${dayOfMonth} ${month}`}
+									</div>
+								</div>
+							</div>
+							<hr
+								style={{
+									width: '100%',
+									height: '2px',
+									display: 'flex',
+									position: 'relative',
+									border: 'none',
+									borderTop: '2px solid #25252540',
+									borderRadius: '1px',
+								}}
+							/>
+							<div className='five-days-forecast-card-item'>
+								<div className='icon-wrapper'>
+									<img src={weatherImage} className='weather-icon' />
+									<div className='icon-wrapper-max-temp'>
+										{data.main
+											? `Макс.: ${Math.floor(data.main.temp_max)}°`
+											: null}
+									</div>
+									<hr
+										style={{
+											width: '58px',
+											height: '2px',
+											display: 'flex',
+											position: 'relative',
+											top: '6px',
+											left: '-6px',
+											border: 'none',
+											borderTop: '2px solid #252525',
+											borderRadius: '1px',
+										}}
+									/>
+									<div className='icon-wrapper-min-temp'>
+										{data.main
+											? `мин.: ${Math.floor(data.main.temp_min)}°`
+											: null}
+									</div>
+								</div>
+								<div className='weather-desc-wrapper'>{weatherDesc}</div>
+								<div className='date-wrapper'>
+									<div className='date-wrapper-day-of-week'>{`${dayOfWeek}`}</div>
+									<hr
+										style={{
+											width: '100%',
+											height: '2px',
+											display: 'flex',
+											position: 'relative',
+											top: '6px',
+											border: 'none',
+											borderTop: '2px solid #252525',
+											borderRadius: '1px',
+										}}
+									/>
+									<div className='date-wrapper-day-of-month'>
+										{`${dayOfMonth} ${month}`}
+									</div>
+								</div>
+							</div>
+							<hr
+								style={{
+									width: '100%',
+									height: '2px',
+									display: 'flex',
+									position: 'relative',
+									border: 'none',
+									borderTop: '2px solid #25252540',
+									borderRadius: '1px',
+								}}
+							/>
+							<div className='five-days-forecast-card-item'>
+								<div className='icon-wrapper'>
+									<img src={weatherImage} className='weather-icon' />
+									<div className='icon-wrapper-max-temp'>
+										{data.main
+											? `Макс.: ${Math.floor(data.main.temp_max)}°`
+											: null}
+									</div>
+									<hr
+										style={{
+											width: '58px',
+											height: '2px',
+											display: 'flex',
+											position: 'relative',
+											top: '6px',
+											left: '-6px',
+											border: 'none',
+											borderTop: '2px solid #252525',
+											borderRadius: '1px',
+										}}
+									/>
+									<div className='icon-wrapper-min-temp'>
+										{data.main
+											? `мин.: ${Math.floor(data.main.temp_min)}°`
+											: null}
+									</div>
+								</div>
+								<div className='weather-desc-wrapper'>{weatherDesc}</div>
+								<div className='date-wrapper'>
+									<div className='date-wrapper-day-of-week'>{`${dayOfWeek}`}</div>
+									<hr
+										style={{
+											width: '100%',
+											height: '2px',
+											display: 'flex',
+											position: 'relative',
+											top: '6px',
+											border: 'none',
+											borderTop: '2px solid #252525',
+											borderRadius: '1px',
+										}}
+									/>
+									<div className='date-wrapper-day-of-month'>
+										{`${dayOfMonth} ${month}`}
+									</div>
+								</div>
+							</div>
+						</div>
 					</>
 				)}
 			</div>
